@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="billing-payment" />
+        <module name="shared-kernel" />
+        <module name="apointment-scheduling" />
+        <module name="medical-record-managment" />
+        <module name="patient-managment" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="apointment-scheduling" options="-parameters" />
+      <module name="billing-payment" options="-parameters" />
+      <module name="medical-record-managment" options="-parameters" />
+      <module name="patient-managment" options="-parameters" />
+      <module name="shared-kernel" options="-parameters" />
+    </option>
+  </component>
+</project>
