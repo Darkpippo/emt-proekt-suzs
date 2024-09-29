@@ -1,6 +1,10 @@
 package mk.ukim.finki.emt.patientmanagment.service.impl;
 
+import mk.ukim.finki.emt.patientmanagment.domain.models.Insurance;
+import mk.ukim.finki.emt.patientmanagment.domain.models.MedicalRecord;
 import mk.ukim.finki.emt.patientmanagment.domain.models.Patient;
+import mk.ukim.finki.emt.patientmanagment.domain.repository.InsuranceRepository;
+import mk.ukim.finki.emt.patientmanagment.domain.repository.MedicalRecordRepository;
 import mk.ukim.finki.emt.patientmanagment.domain.repository.PatientRepository;
 import mk.ukim.finki.emt.patientmanagment.service.PatientService;
 import mk.ukim.finki.emt.sharedkernel.domain.base.PatientId;
@@ -11,9 +15,13 @@ import java.util.List;
 @Service
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
+    private final MedicalRecordRepository medicalRecordRepository;
+    private final InsuranceRepository insuranceRepository;
 
-    public PatientServiceImpl(PatientRepository patientRepository) {
+    public PatientServiceImpl(PatientRepository patientRepository, MedicalRecordRepository medicalRecordRepository, InsuranceRepository insuranceRepository) {
         this.patientRepository = patientRepository;
+        this.medicalRecordRepository = medicalRecordRepository;
+        this.insuranceRepository = insuranceRepository;
     }
 
     @Override
@@ -23,7 +31,10 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient save(Patient patient) {
-        return patientRepository.save(patient);
+        insuranceRepository.save(patient.getInsurance());
+        Patient savedPatient = patientRepository.save(patient);
+        medicalRecordRepository.save(savedPatient.getMedicalRecord());
+        return savedPatient;
     }
 
     @Override

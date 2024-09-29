@@ -6,22 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import mk.ukim.finki.emt.billingpayment.domain.valueObjects.Amount;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Payment {
+public class Payment implements Serializable {
     @Id
-    @Column(insertable=false, updatable=false)
+    @Column(insertable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long appointmentId;
 
     @Embedded
     private Amount amount;
 
-    private LocalDate date;
+    private LocalDateTime date;
     private String status;
-
 }

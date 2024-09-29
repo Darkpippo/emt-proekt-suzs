@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mk.ukim.finki.emt.patientmanagment.domain.models.Patient;
 import mk.ukim.finki.emt.sharedkernel.domain.base.AppointmentDate;
 
 @Entity
@@ -14,9 +13,7 @@ import mk.ukim.finki.emt.sharedkernel.domain.base.AppointmentDate;
 @NoArgsConstructor
 @Embeddable
 public class Appointment {
-
     @Id
-    @Column(insertable=false, updatable=false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -25,9 +22,7 @@ public class Appointment {
 
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
+    private Long patientId;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")

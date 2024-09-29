@@ -1,5 +1,6 @@
 package mk.ukim.finki.emt.patientmanagment.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +23,8 @@ public class Patient {
     @Embedded
     private ContactInformation contactInformation;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "medical_record_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "patient")
+    @JsonManagedReference
     private MedicalRecord medicalRecord;
 
     @OneToOne(cascade = CascadeType.ALL)

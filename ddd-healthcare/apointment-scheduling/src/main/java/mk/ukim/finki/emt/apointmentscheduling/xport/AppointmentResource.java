@@ -5,12 +5,10 @@ import mk.ukim.finki.emt.apointmentscheduling.domain.models.Appointment;
 import mk.ukim.finki.emt.apointmentscheduling.domain.models.Doctor;
 import mk.ukim.finki.emt.apointmentscheduling.services.impl.AppointmentServiceImpl;
 import mk.ukim.finki.emt.apointmentscheduling.services.DoctorService;
-import mk.ukim.finki.emt.patientmanagment.domain.models.Patient;
-import mk.ukim.finki.emt.patientmanagment.service.PatientService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.util.List;
 
 @RestController
@@ -19,11 +17,32 @@ import java.util.List;
 public class AppointmentResource {
     private final AppointmentServiceImpl appointmentService;
     private final DoctorService doctorService;
-    private final PatientService patientService;
 
     @GetMapping("/appointments")
     public List<Appointment> getAll() {
         return appointmentService.findAll();
+    }
+
+    @GetMapping("/appointments/{id}")
+    public ResponseEntity<Appointment> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(appointmentService.findById(id));
+    }
+
+    @PostMapping("/appointments")
+    public ResponseEntity<Appointment> save(@RequestBody Appointment appointment) {
+        Appointment savedAppointment = appointmentService.save(appointment);
+        return ResponseEntity.ok(savedAppointment);
+    }
+
+    @PutMapping("/appointments/{id}")
+    public ResponseEntity<Appointment> edit(@PathVariable Long id, @RequestBody Appointment appointment) {
+        return ResponseEntity.ok(appointmentService.edit(id, appointment));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment updatedAppointment) {
+        Appointment appointment = appointmentService.updateAppointmentByDoctor(id, updatedAppointment);
+            return ResponseEntity.ok(appointment);
     }
 
     @GetMapping("/doctors")
@@ -31,9 +50,8 @@ public class AppointmentResource {
         return doctorService.findAll();
     }
 
-    @GetMapping("/patients")
-    public List<Patient> getAllPatients() {
-        return patientService.findAll();
+    @PostMapping("/doctors")
+    public Doctor saveDoctor(@RequestBody Doctor doctor) {
+        return doctorService.save(doctor);
     }
-
 }

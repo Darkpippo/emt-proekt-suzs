@@ -1,5 +1,6 @@
 package mk.ukim.finki.emt.patientmanagment.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,5 +22,7 @@ public class MedicalRecord {
 
     @OneToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    @JsonBackReference
     private Patient patient;
+
 }
