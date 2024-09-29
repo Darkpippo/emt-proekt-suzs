@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-Indeks 213209 - Aleksandar Panovski
-=======
 # Indeks 213209 - Aleksandar Panovski
->>>>>>> b488534704646de894e6d9899d8442968a4127d0
 
 # Healthcare Appointment Management System (SUZS)
 
